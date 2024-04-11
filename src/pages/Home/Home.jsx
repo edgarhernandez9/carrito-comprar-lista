@@ -12,9 +12,10 @@ const Home = () => {
 
     const location = useLocation();
 
+
     useEffect(() => {
         if (location && location.state) {
-            setData(location.state.data)
+            setData(location.state)
             
         } else {
             console.log('No se encontraron datos en la cookie.');
