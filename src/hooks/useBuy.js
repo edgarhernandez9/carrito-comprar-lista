@@ -1,4 +1,11 @@
 import { useContext } from 'react';
 import { BuyContext } from '../context';
 
-export const useBuy = () => useContext(BuyContext);
+const context = ()=> useContext(BuyContext);
+
+export const useBuy = () => {
+
+    return {
+        ...context
+    }
+}

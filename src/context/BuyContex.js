@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useContext } from 'react';
 
 
 export const BuyContext = createContext();
@@ -26,7 +26,7 @@ export function BuyProvider(props){
         const dataProductos = sessionStorage.getItem('myProducts');
 
         if (dataProductos) {
-            setDataProduc(dataProductos)
+            setDataProduc(JSON.parse(dataProductos))
         }else{
             setDataProduc(productos)
         }
@@ -53,3 +53,5 @@ export function BuyProvider(props){
         { children }
     </BuyContext.Provider>
 }
+
+// export const useMyContext = () => useContext(BuyContext);

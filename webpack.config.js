@@ -52,10 +52,23 @@ module.exports = () => {
                 name: 'carrito_compras_views',
                 filename: "remoteEntry.js",
                 remotes: {
-                    carrito_compras: `carrito-compras@http://localhost:3000/remoteEntry.js`
+                    'components': 'carrito_compras@http://localhost:3000/remoteEntry.js',
                 },
                 exposes: {
-                    './Home': './src/pages/Home/Home.jsx'
+                    './Home': './src/pages/Home/Home.jsx',
+                    './useBuy': './src/hooks/useBuy.js',
+                },
+                shared: {
+                    ...deps,
+                    react: {
+                      eager: true,
+                    //   singleton: true,
+                      requiredVersion: deps.react,
+                    },
+                    "react-dom": {
+                    //   singleton: true,
+                      requiredVersion: deps["react-dom"],
+                    },
                 },
 
             }),

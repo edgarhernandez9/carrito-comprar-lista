@@ -1,49 +1,58 @@
-import React, { useEffect} from 'react';
-import { useBuy } from '../../hooks'
+import React, { useEffect, useState} from 'react';
+import { useLocation } from 'react-router-dom'
+// import { useBuy } from '../../hooks';
 import { InfoCompras, ListaProductosCarrito } from '../../components';
 
 import '../../theme/Home.css';
 
-export const Home = () => {
+const Home = () => {
 
-    const {total, dataProduc, calTotal, dataProduct} = useBuy();
+    
+    const [data, setData] = useState([]);
+
+    const location = useLocation();
 
     useEffect(() => {
-      
-        const cookieData = document.cookie.split('; ').find(row => row.startsWith('productData='));
-        if (cookieData) {
-            const storedData = decodeURIComponent(cookieData.split('=')[1]);
-            const parsedData = JSON.parse(storedData);
-            dataProduct(parsedData)
+        if (location && location.state) {
+            setData(location.state.data)
+            
         } else {
             console.log('No se encontraron datos en la cookie.');
-            dataProduct([])
+            setData([])
         }
-    }, [])
+    }, [location]);
+
+    const deleteCar = (id) => {
+        const filterDelete = data.filter( data => data.id !== id);
+        setData(filterDelete);
+    }
     
-
-    useEffect(() => {
-        calTotal(dataProduc)
-    })
-
+    const agregarProducts = (id) => {
+        setData( data.map( (producto) => 
+            producto.id === id ? {...producto, cantidad: producto.cantidad + 1} : producto))
+    
+    }
+    
     return (
         <div className="container-compras">
             <p className="container-compras-title">Productos Agregados en carrito</p>
 
             {
-                dataProduc.length === 0 ? 
+                data.length === 0 ? 
                     <div className="sinDatos">No hay productos </div> : 
                     <>
                         <div className="container-compras-productos">
                             <div>
                                 {
-                                    dataProduc.map((producto) => (
+                                    data.map((producto) => (
                                         <ListaProductosCarrito
                                             key={ producto.id}
                                             nombreProducto={ producto.name}
                                             precio={ producto.precio }
                                             cantidad={ producto.cantidad }
                                             id={ producto.id }
+                                            deleteCar={ deleteCar }
+                                            agregarProducts={ agregarProducts }
                                         />
                                     ))
                                 }
@@ -53,7 +62,7 @@ export const Home = () => {
                         <div className="container-compras-footer">
                             <InfoCompras 
                                 textParrafo="Total compra:"
-                                textLabel={ `$ ${parsePrice(total)}` }
+                                textLabel={ `$ ${parsePrice(calTotal(data))}` }
                                 styleParrafo={{
                                     fontSize: "20px",
                                     height: "20px"
@@ -78,8 +87,17 @@ export const Home = () => {
     )
 }
 
+export default Home;
 
 
 const parsePrice = (price) => {
     return parseFloat(price.toFixed(2))
 }
+
+const calTotal = (products) => {
+
+    const mapTotal = products.map( product => product.precio * product.cantidad);
+    const newTotal = mapTotal.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    return newTotal;
+}
+

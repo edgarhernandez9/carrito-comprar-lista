@@ -1,6 +1,7 @@
 import React from 'react';
-import './App.css';
 import { RouterPages } from './router/Router';
+
+import './App.css';
 
 function App() {
   

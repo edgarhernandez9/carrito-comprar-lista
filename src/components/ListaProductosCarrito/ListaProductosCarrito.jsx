@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useBuy } from '../../hooks'
+import React from 'react';
+import { useBuy } from '../../hooks';
 import { InfoCompras } from '../infoCompras';
 import { Button } from '../Button';
 
 import '../../theme/ListaProductosCarrito.css';
 
 
-
 export const ListaProductosCarrito = (props) => {
 
-    const {deleteCar, agregarProducts} = useBuy();
+    // const {deleteCar, agregarProducts} = useBuy();
 
     const { 
         nombreProducto,
         precio,
         cantidad,
-        id
+        id,
+        deleteCar,
+        agregarProducts
     } = props;
 
 
