@@ -114,7 +114,7 @@ export const ListaProductosCarrito = (props) => {
                         backgroundColor: "#309F5A",
                         border: "none",
                         borderRadius: "10px",
-                        width: "130px",
+                        width: "160px",
                         height: "25px",
                         position: "relative",
                         top: "40px",

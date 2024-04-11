@@ -1,0 +1,25 @@
+.container-compras{
+    display: flex;
+    flex-direction: column;
+}
+
+.container-compras-title{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.container-compras-footer{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 60px;
+}
+
+.sinDatos{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 30px;
+    font-weight: bold;
+}
